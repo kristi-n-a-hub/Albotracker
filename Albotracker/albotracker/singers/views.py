@@ -51,7 +51,7 @@ class SingerView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        albums = Album.objects.filter(tracks__singers=self.object)
+        albums = Album.objects.filter(tracks__singers=self.object).distinct()
 
         for album in albums:
             # Получение всех исполнителей для альбома
@@ -59,7 +59,7 @@ class SingerView(DetailView):
             # Добавление списка исполнителей к каждому альбому в словаре
             album.singers_in_album = singers_in_album
 
-        singles = Single.objects.filter(track__singers=self.object)
+        singles = Single.objects.filter(track__singers=self.object).distinct()
 
         for single in singles:
             # Получение всех исполнителей для альбома

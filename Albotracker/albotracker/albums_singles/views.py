@@ -49,7 +49,7 @@ class SingleView(DetailView):
         # Получаем объект альбома
         single = context['single']
 
-        # Получаем всех исполнителей альбома (исполнителей всех треков альбома)
+        # Получаем всех исполнителей сингла
         singers = single.track.singers.all()
 
         track = single.track
