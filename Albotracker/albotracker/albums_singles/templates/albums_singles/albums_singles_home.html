@@ -1,0 +1,91 @@
+{% extends "main/header.html" %}
+{% load custom_filters %}
+
+{% block title %}Альбомы/Синглы{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Альбомы
+            {% if user|group_exists:'moderator' %}
+            <ul><a href="{% url 'add_album' %}"><button class="style-button">Добавить альбом</button></a></ul>
+            {% endif %}
+        </label>
+    </h4>
+    <div class="style-main-margin">
+        <div class="row flex-nowrap overflow-auto">
+            {% for el in albums %}
+                <div class="col-md-3 mb-4">
+                <a href="{% url 'album_view' el.album_id %}" class="card-link">
+                    <div class="card-with-border custom-card">
+                    {% with title=el.title %}
+                        <img src="{{ el.cover.url }}" class="card-img-top" alt="{{ title }}">
+                        <div class="card-body marquee-container">
+                            {% if el.title|length > 20 %}
+                                <h5 class="card-title marquee" title="{{ title }}">{{ title }}</h5>
+                            {% else %}
+                                <h5 class="card-title">{{ title }}</h5>
+                            {% endif %}
+                            <p class="card-text">
+                                {% with singers=el.singers_in_album.all|join:', ' %}
+                                    {% if singers|length > 30 %}
+                                        <span class="marquee" title="{{ singers }}">
+                                            {{ singers }}
+                                        </span>
+                                    {% else %}
+                                        {{ singers }}
+                                    {% endif %}
+                                {% endwith %}<br>
+                            </p><br>
+                            {{ el.release_year }}
+                        </div>
+                    {% endwith %}
+                    </div>
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Синглы
+            {% if user|group_exists:'moderator' %}
+            <ul><a href="{% url 'add_single' %}"><button class="style-button">Добавить сингл</button></a></ul>
+            {% endif %}
+        </label>
+    </h4>
+    <div class="style-main-margin">
+        <div class="row flex-nowrap overflow-auto">
+            {% for el in singles %}
+                <div class="col-md-3 mb-4">
+                <a href="{% url 'single_view' el.single_id %}" class="card-link">
+                    <div class="card-with-border custom-card">
+                    {% with title=el.track.title %}
+                        <img src="{{ el.track.cover.url }}" class="card-img-top" alt="{{ title }}">
+                        <div class="card-body marquee-container">
+                            {% if title|length > 20 %}
+                                <h5 class="card-title marquee" title="{{ title }}">{{ title }}</h5>
+                            {% else %}
+                                <h5 class="card-title">{{ title }}</h5>
+                            {% endif %}
+                            <p class="card-text">
+                                {% with singers=el.singers_in_single.all|join:', ' %}
+                                    {% if singers|length > 30 %}
+                                        <span class="marquee" title="{{ singers }}">
+                                            {{ singers }}
+                                        </span>
+                                    {% else %}
+                                        {{ singers }}
+                                    {% endif %}
+                                {% endwith %}
+                            </p><br>
+                            {{ el.track.release_year }}
+                        </div>
+                    {% endwith %}
+                    </div>
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div><br><br>
+{% endblock %}

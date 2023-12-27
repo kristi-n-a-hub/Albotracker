@@ -1,0 +1,120 @@
+{% extends "main/header.html" %}
+
+{% block title %}Форма по добавлению сингла{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Форма по добавлению сингла
+        </label>
+    </h4>
+    <div class="style-main-margin">
+        <form method="post" enctype="multipart/form-data" action="{% url 'add_single' %}">
+            {% csrf_token %}
+
+            <label for="{{ form.track.id_for_label }}">Трек</label><br>
+            {{ form.track }}
+            <div class="error-message">{{ form.track.errors|striptags }}</div>
+            <br>
+
+            {#            <label for="add_track_button">Добавить трек</label><br>#}
+            <button type="button" id="add_track_button">Добавить трек</button>
+            <br><br>
+
+            <input type="submit" class="style-button-form" value="Добавить сингл">
+        </form>
+    </div>
+
+    <!-- Модальное окно для добавления трека -->
+    <div id="addTrackModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+                <form id="addTrackForm" method="post" enctype="multipart/form-data" action="{% url 'add_track' %}">
+                    {% csrf_token %}
+
+                    <label for="{{ track_form.title.id_for_label }}">Название трека</label><br>
+                    <input type="text" id="{{ track_form.title.id_for_label }}" name="{{ track_form.title.name }}"
+                           placeholder="Введите название трека" value="{{ track_form.title.value }}" style="width: 300px" required>
+                    <div class="error-message">{{ track_form.title.errors|striptags }}</div>
+                    <br>
+
+                    <label for="{{ track_form.release_year.id_for_label }}">Год выпуска трека</label><br>
+                    <input type="number" id="{{ track_form.release_year.id_for_label }}" name="{{ track_form.release_year.name }}"
+                           placeholder="Введите год выпуска трека" value="{{ track_form.release_year.value }}" style="width: 300px" required>
+                    <div class="error-message">{{ track_form.release_year.errors|striptags }}</div>
+                    <br>
+
+                    <label for="{{ track_form.cover.id_for_label }}">Обложка трека</label><br>
+                    <input type="file" id="{{ track_form.cover.id_for_label }}" name="{{ track_form.cover.name }}" accept="image/*" placeholder="Выберите файл">
+                    <div class="error-message">{{ track_form.cover.errors|striptags }}</div>
+                    <br>
+
+                    <label for="{{ track_form.audio.id_for_label }}">Аудио трека</label><br>
+                    <input type="file" id="{{ track_form.audio.id_for_label }}" name="{{ track_form.audio.name }}" accept="audio/*" placeholder="Выберите файл" required>
+                    <div class="error-message">{{ track_form.audio.errors|striptags }}</div>
+                    <br>
+
+                    <label for="{{ track_form.genres.id_for_label }}">Жанры</label><br>
+                    {{ track_form.genres }}
+                    <div class="error-message">{{ track_form.genres.errors|striptags }}</div>
+                    <br>
+
+                    <label for="{{ track_form.singers.id_for_label }}">Исполнители</label><br>
+                    {{ track_form.singers }}
+                    <div class="error-message">{{ track_form.singers.errors|striptags }}</div>
+                    <br>
+
+                    <input type="submit" class="style-button-form" value="Добавить трек">
+                </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code to show/hide the modal window
+        var addTrackButton = document.getElementById("add_track_button");
+        var addTrackModal = document.getElementById("addTrackModal");
+        var closeButton = document.getElementsByClassName("close")[0];
+
+        addTrackButton.onclick = function() {
+            addTrackModal.style.display = "block";
+        };
+
+        closeButton.onclick = function() {
+            addTrackModal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target === addTrackModal) {
+                addTrackModal.style.display = "none";
+            }
+        };
+
+        // Добавляем следующую часть кода для обработки успешного добавления трека
+        var addTrackForm = document.getElementById("addTrackForm");
+
+        if (addTrackForm) {
+            addTrackForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                // Отправляем запрос на добавление трека
+                fetch(addTrackForm.action, {
+                    method: 'POST',
+                    body: new FormData(addTrackForm),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Если трек успешно добавлен, закрываем модальное окно
+                        var addTrackModal = document.getElementById("addTrackModal");
+                        addTrackModal.style.display = "none";
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        }
+
+    </script>
+
+{% endblock %}
+

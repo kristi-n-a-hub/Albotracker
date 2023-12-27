@@ -1,0 +1,60 @@
+{% extends "main/header.html" %}
+{% load custom_filters %}
+
+{% block title %}Исполнители{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+    <label style="margin-left: 1%; display: flex; align-items: center;">
+        Исполнители
+        {% if user|group_exists:'moderator' %}
+            <ul><a href="{% url 'add_singer' %}"><button class="style-button">Добавить исполнителя</button></a></ul>
+        {% endif %}
+        <form method="get" action="{% url 'singers_home' %}" class="style-filter" style="">
+            {{ form.genres }}
+            &nbsp;&nbsp;&nbsp;<button type="submit" class="style-button-filter">Фильтровать</button>
+        </form>
+    </label>
+    </h4>
+    <div class="style-main-margin">
+{#        <form method="get" action="{% url 'singers_home' %}" style="display: flex; align-items: center; margin-bottom: 1%">#}
+{#            <div style="display: flex; align-items: center;">#}
+        {#        <label for="{{ form.genres.id_for_label }}">Жанры: </label>#}
+        {#        &nbsp;&nbsp;&nbsp;#}
+{#                {{ form.genres }}#}
+{#            </div>#}
+{#            <button type="submit" class="style-button">Применить фильтр</button>#}
+{#        </form>#}
+        <div class="row">
+            {% for el in singers %}
+                <div class="col-md-3 mb-4">
+                    <a href="{% url 'singer_view' el.singer_id %}" class="card-link">
+                        <div class="card-with-border custom-card">
+                        {% with alias=el.alias %}
+                            <img src="{{ el.photo.url }}" class="card-img-top" alt="{{ alias }}">
+                            <div class="card-body marquee-container">
+                                {% if alias|length > 20 %}
+                                    <h5 class="card-title marquee" title="{{ alias }}">{{ alias }}</h5>
+                                {% else %}
+                                    <h5 class="card-title">{{ alias }}</h5>
+                                {% endif %}
+                                <p class="card-text">
+                                    {% with genres=el.genres.all|join:', ' %}
+                                        {% if genres|length > 40 %}
+                                            <span class="marquee" title="{{ genres }}">
+                                                {{ genres }}
+                                            </span>
+                                        {% else %}
+                                            {{ genres }}
+                                        {% endif %}
+                                    {% endwith %}
+                                </p>
+                            </div>
+                        {% endwith %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

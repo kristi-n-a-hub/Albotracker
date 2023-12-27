@@ -1,0 +1,31 @@
+{% extends "main/header.html" %}
+
+{% block title %}Форма по добавлению исполнителя{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+    <label style="margin-left: 1%; display: flex; align-items: center;">
+        Форма по добавлению исполнителя
+    </label>
+    </h4>
+    <div class="style-main-margin">
+        <form method="post" enctype="multipart/form-data" action="{% url 'add_singer' %}">
+            {% csrf_token %}
+
+            <label for="{{ form.alias.id_for_label }}">Псевдоним исполнителя</label><br>
+            <input type="text" id="{{ form.alias.id_for_label }}" name="{{ form.alias.name }}"
+                   placeholder="Введите псевдоним исполнителя" value="{{ form.alias.value }}" style="width: 300px">
+            <div class="error-message">{{ form.alias.errors|striptags  }}</div>
+            <br>
+            <label for="{{ form.photo.id_for_label }}">Фото</label><br>
+            <input type="file" id="{{ form.photo.id_for_label }}" name="{{ form.photo.name }}" accept="image/*" placeholder="Выберите файл">
+            <div class="error-message">{{ form.photo.errors|striptags  }}</div>
+            <br>
+            <label for="{{ form.genres.id_for_label }}">Жанры</label><br>
+            {{ form.genres }}
+            <div class="error-message">{{ form.genres.errors|striptags }}</div>
+            <br>
+            <input type="submit" class="style-button-form" value="Добавить исполнителя">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "main/header.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Регистрация
+        </label>
+    </h4>
+    <div class="center-container">
+        <form method="post" enctype="multipart/form-data" action="{% url 'users_signup' %}">
+            {% csrf_token %}
+
+            <label for="{{ form.username.id_for_label }}" class="bold-text">Никнэйм</label><br>
+            <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}"
+                   placeholder="Введите никнэйм" value="{{ form.username.value }}" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.username.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.email.id_for_label }}" class="bold-text">Адрес электронной почты</label><br>
+            <input type="text" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}"
+                   placeholder="Введите адрес электронной почты" value="{{ form.email.value }}" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.email.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.first_name.id_for_label }}" class="bold-text">Имя</label><br>
+            <input type="text" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}"
+                   placeholder="Введите имя" value="{{ form.first_name.value }}" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.first_name.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.last_name.id_for_label }}" class="bold-text">Фамилия</label><br>
+            <input type="text" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}"
+                   placeholder="Введите фамилию" value="{{ form.last_name.value }}" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.last_name.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.password1.id_for_label }}" class="bold-text">Пароль</label><br>
+            <input type="password" id="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}"
+                   placeholder="Введите пароль" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.password1.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.password2.id_for_label }}" class="bold-text">Подтверждение пароля</label><br>
+            <input type="password" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}"
+                   placeholder="Подтвердите пароль" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.password2.errors|striptags  }}</div>
+            <br>
+
+            <input type="submit" class="style-button-big" value="Регистрация">
+        </form>
+    </div>
+
+{% endblock %}

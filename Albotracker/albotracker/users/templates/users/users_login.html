@@ -1,0 +1,33 @@
+{% extends "main/header.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Вход
+        </label>
+    </h4>
+    <div class="center-container">
+        <form method="post" action="{% url 'users_login' %}">
+            {% csrf_token %}
+
+            <label for="{{ form.username.id_for_label }}" class="bold-text">Никнэйм</label><br>
+            <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}"
+                   placeholder="Введите никнэйм" value="{{ form.username.value }}" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.username.errors|striptags  }}</div>
+            <br>
+
+            <label for="{{ form.password.id_for_label }}" class="bold-text">Пароль</label><br>
+            <input type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}"
+                   placeholder="Введите пароль" class="field-size" style="font-size: 20px">
+            <div class="error-message">{{ form.password.errors|striptags  }}</div>
+            <br>
+
+            <input type="submit" class="style-button-big" value="Войти">
+            <br><br>
+
+            <button class="style-button-big"><a href="{% url 'users_signup' %}" class="hide-link">Зарегистрироваться</a></button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,493 @@
+body {
+    background: white;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: black;
+    height: 60px;
+    color: white;
+}
+
+header a.header-link {
+    margin-top: -32px;
+    margin-left: auto; /* Размещаем элемент справа */
+    margin-right: 20px;
+    background-color: gray;
+    color: white;
+    border-radius: 7px;
+    font-weight: bold;
+    border: none;
+    padding: 2px;
+    font-size: 100%;
+    list-style: none;
+    text-decoration: none;
+    transition: transform .6s ease;
+}
+
+header a.header-link:hover {
+    color: black;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+header .logo {
+    font-size: 35px;
+    position: relative;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+
+nav {
+    margin-top: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: black;
+    height: 50px;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    position: relative;
+    text-align: center;
+}
+
+nav ul li {
+    color: white;
+    font-size: 20px;
+    margin-left: 70px;
+    margin-top: 10px;
+    transition: transform .6s ease;
+}
+
+nav .deleteMarginLeft{
+    margin-left: initial;
+}
+
+nav ul li:hover, aside ul a:hover {
+    color: gray;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+nav ul a {
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+}
+
+/* Медиа-запросы для адаптивности */
+@media screen and (max-width: 1120px) {
+    header {
+        height: 50px;
+    }
+
+    header .logo {
+        font-size: 25px; /* Изменяет размер шрифта для меньших экранов */
+    }
+
+    header a.header-link {
+        margin-top: -22px;
+        margin-left: auto; /* Размещаем элемент справа */
+    }
+
+    nav {
+        height: 40px;
+    }
+
+    nav ul li {
+        font-size: 16px; /* Изменяет размер шрифта для меньших экранов */
+        margin: 5px; /* Изменяет отступ для меньших экранов */
+    }
+}
+
+@media (max-width: 675px) {
+    .col-md-3 {
+        width: 100%;
+        margin-right: -40%;
+    }
+}
+
+@media (min-width: 675px) and (max-width: 830px) {
+    .col-md-3 {
+        width: 50%;
+    }
+}
+
+@media (min-width: 830px) and (max-width: 990px) {
+    .col-md-3 {
+        width: 50%;
+        margin-right: -10%;
+    }
+}
+
+@media (min-width: 990px) and (max-width: 1320px) {
+    .col-md-3 {
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 1320px) and (max-width: 1640px) {
+    .col-md-3 {
+        width: 25%;
+    }
+
+}
+
+@media (min-width: 1640px) {
+    .col-md-3 {
+        width: 20%;
+    }
+}
+
+.card-with-border {
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-card {
+    height: 350px;
+    min-height: 350px;
+    max-height: 350px;
+    width: 216px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top {
+    border: 2px solid black;
+    object-fit: cover;
+    width: 192px;
+    height: 192px;
+}
+
+.card-body {
+    padding-top: 3%; /* Отступ сверху для названия карточки */
+}
+
+.card-title {
+    font-size: 1.2rem; /* Размер шрифта для заголовка карточки */
+    margin-bottom: 2px;
+}
+
+.card-text {
+    max-height: 30px;
+    min-height: 30px;
+    font-size: 0.9rem; /* Размер шрифта для текста карточки */
+}
+
+.marquee-container {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.marquee {
+    margin-top: -2px;
+    margin-bottom: -2px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.marquee:hover {
+    animation: marquee 5s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.style-main-margin {
+    margin-left: 16%;
+    margin-right: 16%;
+}
+
+{#.genre-checkbox {#}
+{#    display: flex;#}
+{#    flex-wrap: wrap;#}
+{#}#}
+{##}
+{#.genre-checkbox label {#}
+{#    display: flex;#}
+{#    align-items: center;#}
+{#    margin-right: 10px;#}
+{#    margin-bottom: 5px;#}
+{#}#}
+{##}
+{#.genre-checkbox input {#}
+{#    margin-right: 5px;#}
+{#}#}
+{##}
+{#.genre-label {#}
+{#    margin-bottom: 0.5%;#}
+{#}#}
+
+.style-button-filter {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    padding: 3%;
+    font-size: 100%;
+}
+
+.style-filter {
+    padding: 0.5%;
+    font-size: 50%;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.style-button {
+    margin-top: 10%;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 3%;
+    font-size: 50%;
+}
+
+.style-button-form {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 1%;
+}
+
+.error-message {
+    color: red;
+    {#font-size: 12px; /* Размер шрифта подсказок */#}
+    {#margin-top: 5px; /* Дополнительный отступ сверху */#}
+}
+
+/* Стили для модального окна */
+#addTrackModal {
+    display: none; /* По умолчанию скрыто */
+    position: fixed; /* Фиксированное положение, чтобы окно оставалось на месте при прокрутке страницы */
+    top: 50%; /* Расположение по вертикали в середине экрана */
+    left: 50%; /* Расположение по горизонтали в середине экрана */
+    transform: translate(-50%, -50%); /* Центрирование окна по обеим осям */
+    {#width: 500px; /* Ширина окна (можете изменить по вашему усмотрению) */#}
+    height: 755px;
+    max-height: 780px;
+    max-width: 500px;
+    padding: 20px; /* Отступы внутри окна */
+    background-color: #f9f9f9; /* Цвет фона */
+    border: 1px solid #ccc; /* Граница окна */
+    border-radius: 5px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень окна */
+}
+
+/* Стили для кнопки закрытия */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.style-button-edit {
+    margin-top: 10%;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 10%;
+    font-size: 50%;
+}
+
+.page-img-view {
+    border: 2px solid black;
+    object-fit: cover;
+    width: 420px;
+    height: 420px;
+}
+
+.page-img-view-year {
+    border: 2px solid black;
+    object-fit: cover;
+    width: 400px;
+    height: 400px;
+}
+
+.year {
+    font-size: 25px;
+    opacity: 0.7;
+}
+
+.style-page-margin {
+    margin-left: 20%;
+    margin-right: 12%;
+}
+
+@media (max-width: 1220px) {
+    .page-img-view {
+        border: 2px solid black;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .page-img-view-year {
+        border: 2px solid black;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Для экранов шириной до 576px покажем 1 карточку в строке */
+@media (min-width: 1220px) and (max-width: 1300px) {
+    .style-page-head-margin {
+        margin-left: 30%;
+    }
+
+    .style-page-margin {
+        margin-left: 50%;
+        margin-right: 12%;
+    }
+
+    .style-page-margin .col-md-3 {
+        width: 100%;
+        margin-right: -6%;
+    }
+}
+
+/* Для экранов шириной от 576px до 768px покажем 2 карточки в строке */
+@media (min-width: 1300px) and (max-width: 1470px) {
+    .style-page-head-margin {
+        margin-left: 20%;
+    }
+
+    .style-page-margin {
+        margin-left: 40%;
+        margin-right: 12%;
+    }
+
+    .style-page-margin .col-md-3 {
+        width: 100%;
+        margin-right: -28%;
+    }
+}
+
+/* Для экранов шириной от 768px до 992px покажем 3 карточки в строке */
+@media (min-width: 1470px) and (max-width: 1580px) {
+    .style-page-head-margin {
+        margin-left: 10%;
+    }
+
+    .style-page-margin {
+        margin-left: 30%;
+        margin-right: 12%;
+    }
+
+    .style-page-margin .col-md-3 {
+        width: 100%;
+        margin-right: -46%;
+    }
+}
+
+/* Для экранов шириной от 992px до 1200px покажем 4 карточки в строке */
+@media (min-width: 1580px) and (max-width: 1700px) {
+    .style-page-head-margin {
+        margin-left: 10%;
+    }
+
+    .style-page-margin {
+        margin-left: 30%;
+        margin-right: 12%;
+    }
+
+    .style-page-margin .col-md-3 {
+        width: 50%;
+    }
+
+}
+
+/* Для экранов шириной более 1200px покажем 5 карточек в строке */
+@media (min-width: 1700px) {
+    .style-page-margin .col-md-3 {
+        width: 40%;
+    }
+}
+
+.card-link {
+    color: black;
+    text-decoration: none;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    {#align-items: center;#}
+    min-height: 100vh;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.bold-text{
+    font-weight: bold;
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+.field-size{
+    width: 450px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.style-button-big{
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    width: 450px;
+    height: 60px;
+    padding: 1%;
+}
+
+.hide-link{
+    color: white;
+    text-decoration: none;
+}
+
+.profile-img-view{
+    margin-left:5px;
+    border: 2px solid black;
+    object-fit: cover;
+    width: 440px;
+    height: 440px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Добавьте это, чтобы элементы были выравнены вертикально */
+}

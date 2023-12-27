@@ -1,0 +1,134 @@
+{% extends "main/header.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            Профиль
+            <ul><a href="{% url 'add_singer' %}"><button class="style-button-edit">Редактировать</button></a></ul>
+        </label>
+    </h4>
+
+    <script>
+        // JavaScript код для перезагрузки страницы при изменении размера экрана
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 1480) {
+                location.reload();
+            }
+
+            if (window.innerWidth > 1480) {
+                location.reload();
+            }
+        });
+    </script>
+
+    <script>
+        // JavaScript код для проверки ширины экрана и изменения HTML-кода
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.innerWidth < 1480) {
+                // Изменения для экранов с шириной менее 1220 пикселей
+                document.getElementById("content-container").innerHTML = `
+                 <div class="flex-container">
+                    <img src="{{ user.user_photo.url }}" class="profile-img-view" alt="{{ user.username }}">
+                    <br><br>
+                    <a href="{% url 'users_logout' %}?next={% url 'users_login' %}" class="hide-link">
+                        <button class="style-button-big">Выйти</button>
+                    </a>
+                    <form method="post" enctype="multipart/form-data" action="{% url 'users_profile' %}">
+                        {% csrf_token %}
+
+                        <label for="{{ form.username.id_for_label }}" class="bold-text">Никнэйм</label><br>
+                        <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}"
+                               value="{{ form.username.value }}" class="field-size" style="font-size: 20px" disabled>
+                        <br>
+
+                        <label for="{{ form.email.id_for_label }}" class="bold-text">Адрес электронной почты</label><br>
+                        <input type="text" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}"
+                               value="{{ form.email.value }}" class="field-size" style="font-size: 20px" disabled>
+                        <br>
+
+                        <label for="{{ form.first_name.id_for_label }}" class="bold-text">Имя</label><br>
+                        <input type="text" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}"
+                               value="{{ form.first_name.value }}" class="field-size" style="font-size: 20px">
+                        <div class="error-message">{{ form.first_name.errors|striptags }}</div>
+                        <br>
+
+                        <label for="{{ form.last_name.id_for_label }}" class="bold-text">Фамилия</label><br>
+                        <input type="text" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}"
+                               value="{{ form.last_name.value }}" class="field-size" style="font-size: 20px">
+                        <div class="error-message">{{ form.last_name.errors|striptags }}</div>
+                        <br>
+
+                        <label for="{{ form.user_photo.id_for_label }}" class="bold-text">Фото пользователя</label><br>
+                        <input type="file" id="{{ form.user_photo.id_for_label }}" name="{{ form.user_photo.name }}"
+                               class="field-size" style="font-size: 20px">
+                        <div class="error-message">{{ form.user_photo.errors|striptags }}</div>
+                        <br>
+
+                        <input type="submit" class="style-button-big" value="Сохранить изменения">
+                    </form>
+                 </div>
+                `;
+            }
+        });
+    </script>
+
+    <div id="content-container" >
+        <div class="style-main-margin" style="display: flex; justify-content: space-around; align-items: center;">
+            <div class="flex-container">
+                <img src="{{ user.user_photo.url }}" class="profile-img-view" alt="{{ user.username }}">
+                <br><br>
+                <a href="{% url 'users_logout' %}?next={% url 'users_login' %}" class="hide-link">
+                    <button class="style-button-big">Выйти</button>
+                </a>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'users_profile' %}">
+                {% csrf_token %}
+
+                <label for="{{ form.username.id_for_label }}" class="bold-text">Никнэйм</label><br>
+                <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}"
+                       value="{{ form.username.value }}" class="field-size" style="font-size: 20px" disabled>
+                <br>
+
+                <label for="{{ form.email.id_for_label }}" class="bold-text">Адрес электронной почты</label><br>
+                <input type="text" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}"
+                       value="{{ form.email.value }}" class="field-size" style="font-size: 20px" disabled>
+                <br>
+
+                <label for="{{ form.first_name.id_for_label }}" class="bold-text">Имя</label><br>
+                <input type="text" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}"
+                       value="{{ form.first_name.value }}" class="field-size" style="font-size: 20px">
+                <div class="error-message">{{ form.first_name.errors|striptags }}</div>
+                <br>
+
+                <label for="{{ form.last_name.id_for_label }}" class="bold-text">Фамилия</label><br>
+                <input type="text" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}"
+                       value="{{ form.last_name.value }}" class="field-size" style="font-size: 20px">
+                <div class="error-message">{{ form.last_name.errors|striptags }}</div>
+                <br>
+
+{#                <label for="{{ form.user_photo.id_for_label }}" class="bold-text">Фото пользователя</label><br>#}
+{#                <input type="file" id="{{ form.user_photo.id_for_label }}" accept="image/*" name="{{ form.user_photo.name }}"#}
+{#                       class="field-size" style="font-size: 20px">#}
+{#                <div class="error-message">{{ form.user_photo.errors|striptags }}</div>#}
+{#                <br>#}
+
+                <input type="submit" class="style-button-big" value="Сохранить изменения">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{#                <label for="{{ form.password1.id_for_label }}" class="bold-text">Новый пароль</label><br>#}
+{#                <input type="password" id="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}"#}
+{#                       placeholder="Введите новый пароль" class="field-size" style="font-size: 20px">#}
+{#                <div class="error-message">{{ form.password1.errors|striptags }}</div>#}
+{#                <br>#}
+{##}
+{#                <label for="{{ form.password2.id_for_label }}" class="bold-text">Подтверждение пароля</label><br>#}
+{#                <input type="password" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}"#}
+{#                       placeholder="Подтвердите пароль" class="field-size" style="font-size: 20px">#}
+{#                <div class="error-message">{{ form.password2.errors|striptags }}</div>#}
+{#                <br>#}

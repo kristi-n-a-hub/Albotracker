@@ -1,0 +1,141 @@
+{% extends "main/header.html" %}
+{% load custom_filters %}
+
+{% block title %}{{ track.title }}{% endblock %}
+
+{% block content %}
+    <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+        <label style="margin-left: 1%; display: flex; align-items: center;">
+            {{ track.title }}
+{#            {% if user|group_exists:'moderator' %}#}
+{#                <ul><a href="{% url 'add_singer' %}"><button class="style-button-edit">Редактировать</button></a></ul>#}
+{#            {% endif %}#}
+        </label>
+    </h4>
+
+    <script>
+        // JavaScript код для перезагрузки страницы при изменении размера экрана
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 1220) {
+                location.reload();
+            }
+
+            if (window.innerWidth > 1220) {
+                location.reload();
+            }
+        });
+    </script>
+
+    <script>
+        // JavaScript код для проверки ширины экрана и изменения HTML-кода
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.innerWidth < 1220) {
+                // Изменения для экранов с шириной менее 1220 пикселей
+                document.getElementById("content-container").innerHTML = `
+                 <div class="style-main-margin">
+                    <img src="{{ track.cover.url }}" class="page-img-view-year" alt="{{ track.title }}">
+                    <span class="year">{{ track.release_year }}</span>
+                    <audio controls style="width: 100%;">
+                        <source src="{{ track.audio.url }}" type="audio/mp3">
+                        Ваш браузер не поддерживает тег audio.
+                    </audio>
+                 </div>
+                <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin: 1% 10% 2% 10%;">
+                    <label style="margin-left: 2%; display: flex; align-items: center;">
+                        Исполнители
+                    </label>
+                </h4>
+                <div class="style-main-margin">
+                    <div class="row flex-nowrap overflow-auto">
+                        {% for el in singers %}
+                            <div class="col-md-3 mb-4">
+                                <a href="{% url 'singer_view' el.singer_id %}" class="card-link">
+                                <div class="card-with-border custom-card">
+                                    {% with alias=el.alias %}
+                                        <img src="{{ el.photo.url }}" class="card-img-top" alt="{{ alias }}">
+                                        <div class="card-body marquee-container">
+                                            {% if title|length > 20 %}
+                                                <h5 class="card-title marquee" title="{{ alias }}">{{ alias }}</h5>
+                                            {% else %}
+                                                <h5 class="card-title">{{ alias }}</h5>
+                                            {% endif %}
+                                                <p class="card-text">
+                                                    {% with genres=el.genres.all|join:', ' %}
+                                                        {% if genres|length > 40 %}
+                                                            <span class="marquee" title="{{ genres }}">
+                                                                {{ genres }}
+                                                            </span>
+                                                        {% else %}
+                                                            {{ genres }}
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                </p>
+                                        </div>
+                                    {% endwith %}
+                                </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                `;
+            }
+        });
+    </script>
+    <div id="content-container">
+        <div class="style-main-margin">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ track.cover.url }}" class="page-img-view-year" alt="{{ track.title }}">
+                    <span class="year">{{ track.release_year }}</span>
+                </div>
+                <div class="col-md-8">
+                    <div class="style-page-head-margin">
+                        <h4 style="text-align: left; border-bottom: 2px solid black; padding-bottom: 10px; margin-left: 10%; margin-bottom: 2%;">
+                            <label style="margin-left: 2%; display: flex; align-items: center;">
+                                Исполнители
+                            </label>
+                        </h4>
+                    </div>
+                    <div class="style-page-margin">
+                        <div class="row flex-nowrap overflow-auto">
+                            {% for el in singers %}
+                                <div class="col-md-3 mb-4">
+                                <a href="{% url 'singer_view' el.singer_id %}" class="card-link">
+                                    <div class="card-with-border custom-card">
+                                        {% with alias=el.alias %}
+                                            <img src="{{ el.photo.url }}" class="card-img-top" alt="{{ alias }}">
+                                            <div class="card-body marquee-container">
+                                                {% if alias|length > 20 %}
+                                                    <h5 class="card-title marquee" title="{{ alias }}">{{ alias }}</h5>
+                                                {% else %}
+                                                    <h5 class="card-title">{{ alias }}</h5>
+                                                {% endif %}
+                                                <p class="card-text">
+                                                    {% with genres=el.genres.all|join:', ' %}
+                                                        {% if genres|length > 40 %}
+                                                            <span class="marquee" title="{{ genres }}">
+                                                                {{ genres }}
+                                                            </span>
+                                                        {% else %}
+                                                            {{ genres }}
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                </p>
+                                            </div>
+                                        {% endwith %}
+                                    </div>
+                                </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <audio controls style="width: 100%;">
+                <source src="{{ track.audio.url }}" type="audio/mp3">
+                Ваш браузер не поддерживает тег audio.
+            </audio>
+        </div>
+    </div>
+{% endblock %}
